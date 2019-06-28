@@ -12,7 +12,8 @@ namespace SuperDigital.Dominio.Entidades
         public long Id { get; set; }
 
         [Column("DataEfetiva")]
-        public DateTimeOffset DataEfetiva { get; set; }
+        [Required]
+        public DateTime DataEfetiva { get; set; } = DateTime.Now;
 
         [Column("ContaOrigem")]
         public string ContaOrigem { get; set; }

@@ -1,30 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SuperDigital.Dominio.Entidades;
 
-namespace SuperDIgital.Infraestrutura.Contexto
+namespace SuperDigital.Infraestrutura.Contexto
 {
     public class ContextoBase : DbContext
     {
-        public ContextoBase(DbContextOptions<ContextoBase> opcoes) : base(opcoes)
+        public ContextoBase(DbContextOptions<ContextoBase> options) : base(options)
         {
-            // if not exist the db -> create
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder opcoesBuilder)
-        {
-            if (!opcoesBuilder.IsConfigured)
-            {
-                opcoesBuilder.UseSqlServer(StrincConectionConfig());
-            }
         }
 
         public DbSet<ContaCorrente> ContaCorrente { get; set; }
 
         public DbSet<Lancamento> Lancamento { get; set; }
 
-        private string StrincConectionConfig()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            return "Data Source=.\\SQLEXPRESS;Initial Catalog=SuperDigital;Integrated Security=False;User ID=sa;Password=123456;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(StringConectionConfig());
+            }
+        }
+
+        public string StringConectionConfig()
+        {
+            return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SuperDigital;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
     }
 }

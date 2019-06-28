@@ -11,9 +11,11 @@ namespace SuperDigital.Dominio.Entidades
         public int Id { get; set; }
 
         [Column("NumeroDaConta")]
+        [Required, MaxLength(10)]
         public string NumeroDaConta { get; set; }
 
         [Column("NomeDoCorrentista")]
+        [Required, MaxLength(100)]
         public string NomeDoCorrentista { get; set; }
 
         [Column("SaldoDaConta")]

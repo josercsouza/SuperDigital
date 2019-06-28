@@ -1,21 +1,18 @@
 ﻿using SuperDigital.Dominio.Entidades;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SuperDigital.Dominio.Interfaces
 {
-    public interface IRepositorioDeContaCorrente
+    public interface IServicoDeContaCorrente
     {
         void Adicionar(ContaCorrente contaCorrente);
 
         void Alterar(ContaCorrente contaCorrente);
 
-        void Excluir(ContaCorrente contaCorrente);
+        void Excluir(string numeroDaConta);
 
-        List<ContaCorrente> Obter(string nome, decimal saldo);
+        List<ContaCorrente> ObterPorNome(string nome);
 
         ContaCorrente Obter(string numeroDaConta);
-
     }
 }

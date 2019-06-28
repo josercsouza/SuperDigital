@@ -1,25 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SuperDigital.Dominio.Entidades;
-using SuperDigital.Dominio.Interfaces;
-using SuperDIgital.Infraestrutura.Contexto;
+using SuperDigital.Dominio.Repositorios;
+using SuperDigital.Infraestrutura.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SuperDIgital.Infraestrutura.Repositorio
+namespace SuperDigital.Infraestrutura.Repositorios
 {
     public class RepositorioDeContaCorrente : IRepositorioDeContaCorrente, IDisposable
     {
-        private readonly DbContextOptionsBuilder<ContextoBase> _opcoesBuilder;
+        private readonly DbContextOptionsBuilder<ContextoBase> _optionsBuilder;
 
         public RepositorioDeContaCorrente()
         {
-            _opcoesBuilder = new DbContextOptionsBuilder<ContextoBase>();
+            _optionsBuilder = new DbContextOptionsBuilder<ContextoBase>();
         }
 
         public void Adicionar(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_opcoesBuilder.Options))
+            using (var banco = new ContextoBase(_optionsBuilder.Options))
             {
                 banco.Set<ContaCorrente>().Add(contaCorrente);
                 banco.SaveChanges();
@@ -28,7 +28,7 @@ namespace SuperDIgital.Infraestrutura.Repositorio
 
         public void Alterar(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_opcoesBuilder.Options))
+            using (var banco = new ContextoBase(_optionsBuilder.Options))
             {
                 banco.Set<ContaCorrente>().Update(contaCorrente);
                 banco.SaveChanges();
@@ -37,26 +37,24 @@ namespace SuperDIgital.Infraestrutura.Repositorio
 
         public void Excluir(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_opcoesBuilder.Options))
+            using (var banco = new ContextoBase(_optionsBuilder.Options))
             {
                 banco.Set<ContaCorrente>().Remove(contaCorrente);
                 banco.SaveChanges();
             }
         }
 
-        public List<ContaCorrente> Obter(string nome, decimal saldo)
+        public List<ContaCorrente> ObterPorNome(string nome)
         {
-            using (var banco = new ContextoBase(_opcoesBuilder.Options))
+            using (var banco = new ContextoBase(_optionsBuilder.Options))
             {
-                // TODO - colocar parametros de filtro
-
-                return banco.Set<ContaCorrente>().AsNoTracking().ToList();
+                return banco.Set<ContaCorrente>().AsNoTracking().Where(x=>x.NomeDoCorrentista.Contains(nome)).ToList();
             }
         }
 
         public ContaCorrente Obter(string numeroDaConta)
         {
-            using (var banco = new ContextoBase(_opcoesBuilder.Options))
+            using (var banco = new ContextoBase(_optionsBuilder.Options))
             {
                 return banco.Set<ContaCorrente>().FirstOrDefault(x => x.NumeroDaConta == numeroDaConta);
             }
