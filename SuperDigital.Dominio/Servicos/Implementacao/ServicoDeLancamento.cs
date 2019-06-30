@@ -34,6 +34,14 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
                     Valor = lancamentoOV.Valor
                 };
 
+                // inverte a operacao caso o valor seja negativo
+                if (lancamentoOV.Valor < 0)
+                {
+                    lancamento.ContaOrigem = lancamentoOV.ContaDestino;
+                    lancamento.ContaDestino = lancamentoOV.ContaOrigem;
+                    lancamento.Valor *= (-1);
+                }
+
                 // Alterar o saldo da Origem
                 var contaOrigem = _repositorioDeContaCorrente.Obter(lancamento.ContaOrigem);
                 contaOrigem.SaldoDaConta -= lancamento.Valor;

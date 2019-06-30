@@ -9,12 +9,14 @@ namespace SuperDigital.Dominio.Servicos.Implementacao.Validadores
         {
             if (string.IsNullOrEmpty(lancamentoOV.ContaOrigem)
                 || string.IsNullOrEmpty(lancamentoOV.ContaDestino)
-                || lancamentoOV.Valor == 0)
+                || lancamentoOV.Valor == 0
+                || lancamentoOV.ContaOrigem == lancamentoOV.ContaDestino)
                 return false;
             else
             {
-                return _repositorioDeContaCorrente.Obter(lancamentoOV.ContaOrigem) != null
-                    && _repositorioDeContaCorrente.Obter(lancamentoOV.ContaDestino) != null;
+                var ccOrigem = _repositorioDeContaCorrente.Obter(lancamentoOV.ContaOrigem);
+                var ccDestino = _repositorioDeContaCorrente.Obter(lancamentoOV.ContaDestino);
+                return ccOrigem != null && ccDestino != null;
             }
         }
     }
