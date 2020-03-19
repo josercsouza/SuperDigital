@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SuperDigital.Dominio.Interfaces;
 using SuperDigital.Dominio.Repositorios;
 using SuperDigital.Dominio.Servicos.Implementacao;
-using SuperDigital.Infraestrutura.Contexto;
 using SuperDigital.Infraestrutura.Repositorios;
 
 namespace SuperDigital.Aplicacao
@@ -23,7 +22,7 @@ namespace SuperDigital.Aplicacao
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllers();
 
             services.AddSingleton<IServicoDeLancamento, ServicoDeLancamento>();
             services.AddSingleton<IServicoDeContaCorrente, ServicoDeContaCorrente>();
@@ -33,7 +32,7 @@ namespace SuperDigital.Aplicacao
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -45,7 +44,6 @@ namespace SuperDigital.Aplicacao
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
         }
     }
 }

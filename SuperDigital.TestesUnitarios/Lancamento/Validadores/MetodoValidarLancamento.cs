@@ -13,7 +13,7 @@ namespace SuperDigital.TestesUnitarios.Lancamento.Validadores
         public class MetodoValidarLancamento
         {
             [Fact]
-            public void QuandoToposOsAtributosForamInformadosCorretamente()
+            public void QuandoTodosOsAtributosForamInformadosCorretamente()
             {
                 //Arrange
                 var lancamentoOV = new LancamentoOV()
