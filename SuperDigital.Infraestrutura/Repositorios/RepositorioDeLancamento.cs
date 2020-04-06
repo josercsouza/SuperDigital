@@ -19,39 +19,33 @@ namespace SuperDigital.Infraestrutura.Repositorios
 
         public void Adicionar(Lancamento lancamento)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                banco.Set<Lancamento>().Add(lancamento);
-                banco.SaveChanges();
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            contexto.Set<Lancamento>().Add(lancamento);
+            contexto.SaveChanges();
         }
 
         public List<Lancamento> Obter(string contaOrigem, string contaDestino, DateTime? data = null)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                // TODO - colocar parametros de filtro
-                var consulta = banco.Set<Lancamento>().AsNoTracking().AsQueryable();
-     
-                if (!string.IsNullOrEmpty(contaOrigem))
-                    consulta = consulta.Where(x => x.ContaOrigem == contaOrigem);
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            // TODO - colocar parametros de filtro
+            var consulta = contexto.Set<Lancamento>().AsNoTracking().AsQueryable();
 
-                if (!string.IsNullOrEmpty(contaDestino))
-                    consulta = consulta.Where(x => x.ContaDestino == contaDestino);
+            if (!string.IsNullOrEmpty(contaOrigem))
+                consulta = consulta.Where(x => x.ContaOrigem == contaOrigem);
 
-                if (data != null)
-                    consulta = consulta.Where(x => x.DataEfetiva == data);
+            if (!string.IsNullOrEmpty(contaDestino))
+                consulta = consulta.Where(x => x.ContaDestino == contaDestino);
 
-                return consulta.ToList();
-            }
+            if (data != null)
+                consulta = consulta.Where(x => x.DataEfetiva == data);
+
+            return consulta.ToList();
         }
 
         public Lancamento Obter(long id)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                return banco.Set<Lancamento>().FirstOrDefault(x => x.Id == id);
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            return contexto.Set<Lancamento>().FirstOrDefault(x => x.Id == id);
         }
 
         public void Dispose()

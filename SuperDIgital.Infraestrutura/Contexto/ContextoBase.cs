@@ -9,9 +9,16 @@ namespace SuperDigital.Infraestrutura.Contexto
         {
         }
 
-        public DbSet<ContaCorrente> ContaCorrente { get; set; }
+        // SuperDigital
+        //public DbSet<ContaCorrente> ContaCorrente { get; set; }
 
-        public DbSet<Lancamento> Lancamento { get; set; }
+        //public DbSet<Lancamento> Lancamento { get; set; }
+        // SuperDigital
+
+        // TestesDiversos
+        public DbSet<Autorizacao> Autorizacao { get; set; }
+
+        // TestesDiversos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +30,8 @@ namespace SuperDigital.Infraestrutura.Contexto
 
         public string StringConectionConfig()
         {
-            return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SuperDigital;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SuperDigital;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TestesDiversos;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
     }
 }

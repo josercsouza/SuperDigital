@@ -19,45 +19,35 @@ namespace SuperDigital.Infraestrutura.Repositorios
 
         public void Adicionar(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                banco.Set<ContaCorrente>().Add(contaCorrente);
-                banco.SaveChanges();
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            contexto.Set<ContaCorrente>().Add(contaCorrente);
+            contexto.SaveChanges();
         }
 
         public void Alterar(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                banco.Set<ContaCorrente>().Update(contaCorrente);
-                banco.SaveChanges();
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            contexto.Set<ContaCorrente>().Update(contaCorrente);
+            contexto.SaveChanges();
         }
 
         public void Excluir(ContaCorrente contaCorrente)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                banco.Set<ContaCorrente>().Remove(contaCorrente);
-                banco.SaveChanges();
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            contexto.Set<ContaCorrente>().Remove(contaCorrente);
+            contexto.SaveChanges();
         }
 
         public List<ContaCorrente> ObterPorNome(string nome)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                return banco.Set<ContaCorrente>().AsNoTracking().Where(x=>x.NomeDoCorrentista.Contains(nome)).ToList();
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            return contexto.Set<ContaCorrente>().AsNoTracking().Where(x => x.NomeDoCorrentista.Contains(nome)).ToList();
         }
 
         public ContaCorrente Obter(string numeroDaConta)
         {
-            using (var banco = new ContextoBase(_optionsBuilder.Options))
-            {
-                return banco.Set<ContaCorrente>().FirstOrDefault(x => x.NumeroDaConta == numeroDaConta);
-            }
+            using var contexto = new ContextoBase(_optionsBuilder.Options);
+            return contexto.Set<ContaCorrente>().FirstOrDefault(x => x.NumeroDaConta == numeroDaConta);
         }
 
         public void Dispose()
