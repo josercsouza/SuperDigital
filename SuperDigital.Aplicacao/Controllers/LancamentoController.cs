@@ -31,12 +31,10 @@ namespace SuperDigital.Aplicacao.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] LancamentoOV lancamentoOV)
         {
-
             if (_servicoDeLancamento.Adicionar(lancamentoOV))
                 return Ok();
             else
                 return BadRequest();
-
         }
     }
 }
