@@ -14,9 +14,8 @@ namespace SuperDigital.Dominio.Servicos.Implementacao.Validadores
                 return false;
             else
             {
-                var ccOrigem = _repositorioDeContaCorrente.Obter(lancamentoOV.ContaOrigem);
-                var ccDestino = _repositorioDeContaCorrente.Obter(lancamentoOV.ContaDestino);
-                return ccOrigem != null && ccDestino != null;
+                return _repositorioDeContaCorrente.Obter(lancamentoOV.ContaOrigem) != null
+                    && _repositorioDeContaCorrente.Obter(lancamentoOV.ContaDestino) != null;
             }
         }
     }

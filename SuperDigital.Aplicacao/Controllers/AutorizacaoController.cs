@@ -11,10 +11,7 @@ namespace SuperDigital.Aplicacao.Controllers
     {
         private readonly IServicoDeAutorizacao _servicoDeAutorizacao;
 
-        public AutorizacaoController(IServicoDeAutorizacao servicoDeAutorizacao)
-        {
-            _servicoDeAutorizacao = servicoDeAutorizacao;
-        }
+        public AutorizacaoController(IServicoDeAutorizacao servicoDeAutorizacao) => _servicoDeAutorizacao = servicoDeAutorizacao;
 
         [HttpGet("{codigo}")]
         public ActionResult<Autorizacao> Get(Guid codigo)

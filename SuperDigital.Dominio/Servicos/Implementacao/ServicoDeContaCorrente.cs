@@ -9,10 +9,8 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
     {
         private readonly IRepositorioDeContaCorrente _repositorioDeContaCorrente;
 
-        public ServicoDeContaCorrente(IRepositorioDeContaCorrente repositorioDeContaCorrente)
-        {
+        public ServicoDeContaCorrente(IRepositorioDeContaCorrente repositorioDeContaCorrente) =>
             _repositorioDeContaCorrente = repositorioDeContaCorrente;
-        }
 
         public void Adicionar(ContaCorrente contaCorrente)
         {

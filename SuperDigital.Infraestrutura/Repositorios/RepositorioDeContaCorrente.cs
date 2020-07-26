@@ -12,10 +12,8 @@ namespace SuperDigital.Infraestrutura.Repositorios
     {
         private readonly DbContextOptionsBuilder<ContextoBase> _optionsBuilder;
 
-        public RepositorioDeContaCorrente()
-        {
+        public RepositorioDeContaCorrente() =>
             _optionsBuilder = new DbContextOptionsBuilder<ContextoBase>();
-        }
 
         public void Adicionar(ContaCorrente contaCorrente)
         {
@@ -61,9 +59,6 @@ namespace SuperDigital.Infraestrutura.Repositorios
             if (!disposed) return;
         }
 
-        ~RepositorioDeContaCorrente()
-        {
-            Dispose(false);
-        }
+        ~RepositorioDeContaCorrente() => Dispose(false);
     }
 }

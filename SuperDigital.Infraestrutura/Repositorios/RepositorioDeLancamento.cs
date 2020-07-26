@@ -12,10 +12,8 @@ namespace SuperDigital.Infraestrutura.Repositorios
     {
         private readonly DbContextOptionsBuilder<ContextoBase> _optionsBuilder;
 
-        public RepositorioDeLancamento()
-        {
+        public RepositorioDeLancamento() => 
             _optionsBuilder = new DbContextOptionsBuilder<ContextoBase>();
-        }
 
         public void Adicionar(Lancamento lancamento)
         {
@@ -59,9 +57,6 @@ namespace SuperDigital.Infraestrutura.Repositorios
             if (!disposed) return;
         }
 
-        ~RepositorioDeLancamento()
-        {
-            Dispose(false);
-        }
+        ~RepositorioDeLancamento() => Dispose(false);
     }
 }

@@ -13,10 +13,8 @@ namespace SuperDigital.Aplicacao.Controllers
     {
         private readonly IServicoDeLancamento _servicoDeLancamento;
 
-        public LancamentoController(IServicoDeLancamento servicoDeLancamento)
-        {
+        public LancamentoController(IServicoDeLancamento servicoDeLancamento) => 
             _servicoDeLancamento = servicoDeLancamento;
-        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Lancamento>> Get(string contaOrigem, string contaDestino, DateTime data)

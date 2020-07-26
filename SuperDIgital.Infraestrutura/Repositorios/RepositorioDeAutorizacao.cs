@@ -14,10 +14,8 @@ namespace SuperDigital.Infraestrutura.Repositorios
     {
         private readonly DbContextOptionsBuilder<ContextoBase> _optionsBuilder;
 
-        public RepositorioDeAutorizacao()
-        {
+        public RepositorioDeAutorizacao() =>
             _optionsBuilder = new DbContextOptionsBuilder<ContextoBase>();
-        }
 
         public void Adicionar(Autorizacao autorizacao)
         {

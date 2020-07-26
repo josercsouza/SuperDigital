@@ -10,10 +10,8 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
     {
         private readonly IRepositorioDeAutorizacao _repositorioDeAutorizacao;
 
-        public ServicoDeAutorizacao(IRepositorioDeAutorizacao repositorioDeLancamento)
-        {
+        public ServicoDeAutorizacao(IRepositorioDeAutorizacao repositorioDeLancamento) =>
             _repositorioDeAutorizacao = repositorioDeLancamento;
-        }
 
         public void Adicionar(Autorizacao autorizacao)
         {

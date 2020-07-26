@@ -11,10 +11,7 @@ namespace SuperDigital.Aplicacao.Controllers
     {
         private readonly IServicoDeContaCorrente _servicoDeContaCorrente;
 
-        public ContaCorrenteController(IServicoDeContaCorrente servicoDeContaCorrente)
-        {
-            _servicoDeContaCorrente = servicoDeContaCorrente;
-        }
+        public ContaCorrenteController(IServicoDeContaCorrente servicoDeContaCorrente) => _servicoDeContaCorrente = servicoDeContaCorrente;
 
         [HttpGet]
         public ActionResult<List<ContaCorrente>> GetPorNome(string nome)
