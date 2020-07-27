@@ -4,6 +4,7 @@ using SuperDigital.Dominio.Interfaces;
 using SuperDigital.Dominio.ObjetosDeValor;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Aplicacao.Controllers
 {
@@ -17,21 +18,21 @@ namespace SuperDigital.Aplicacao.Controllers
             _servicoDeLancamento = servicoDeLancamento;
 
         [HttpGet]
-        public ActionResult<IEnumerable<Lancamento>> Get(string contaOrigem, string contaDestino, DateTime data)
+        public async Task<IEnumerable<Lancamento>> Get(string contaOrigem, string contaDestino, DateTime data)
         {
-            return _servicoDeLancamento.Obter(contaOrigem, contaDestino, data);
+            return await _servicoDeLancamento.Obter(contaOrigem, contaDestino, data);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Lancamento> Get(long id)
+        public async Task<Lancamento> Get(long id)
         {
-            return _servicoDeLancamento.Obter(id);
+            return await _servicoDeLancamento.Obter(id);
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] LancamentoOV lancamentoOV)
+        public async Task<ActionResult> Post([FromBody] LancamentoOV lancamentoOV)
         {
-            if (_servicoDeLancamento.Adicionar(lancamentoOV))
+            if (await _servicoDeLancamento.Adicionar(lancamentoOV))
                 return Ok();
             else
                 return BadRequest();

@@ -25,12 +25,12 @@ namespace SuperDigital.TestesUnitarios.Lancamento.Validadores
 
                 var mock = new Mock<IRepositorioDeContaCorrente>();
                 mock.Setup(x => x.Obter(lancamentoOV.ContaOrigem))
-                    .Returns(new ContaCorrente()
+                    .ReturnsAsync(new ContaCorrente()
                     {
                         NumeroDaConta = "12"
                     });
                 mock.Setup(x => x.Obter(lancamentoOV.ContaDestino))
-                    .Returns(new ContaCorrente()
+                    .ReturnsAsync(new ContaCorrente()
                     {
                         NumeroDaConta = "13"
                     });
@@ -51,17 +51,21 @@ namespace SuperDigital.TestesUnitarios.Lancamento.Validadores
 
                 if (lancamentoOV.ContaOrigem == "12")
                     mock.Setup(x => x.Obter(lancamentoOV.ContaOrigem))
-                        .Returns(new ContaCorrente()
+                        .ReturnsAsync(lancamentoOV.ContaOrigem == "12"
+                        ? new ContaCorrente()
                         {
                             NumeroDaConta = "12"
-                        });
+                        }
+                        : null);
 
                 if (lancamentoOV.ContaDestino == "13")
                     mock.Setup(x => x.Obter(lancamentoOV.ContaDestino))
-                        .Returns(new ContaCorrente()
+                        .ReturnsAsync(lancamentoOV.ContaDestino == "13"
+                        ? new ContaCorrente()
                         {
                             NumeroDaConta = "13"
-                        });
+                        }
+                        : null);
 
                 // Act
                 var resultado = ValidarLancamento.Validar(lancamentoOV, mock.Object);

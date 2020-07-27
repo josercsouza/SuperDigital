@@ -1,5 +1,6 @@
 ﻿using SuperDigital.Dominio.Entidades;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Interfaces
 {
@@ -11,8 +12,8 @@ namespace SuperDigital.Dominio.Interfaces
 
         void Excluir(string numeroDaConta);
 
-        List<ContaCorrente> ObterPorNome(string nome);
+        Task<List<ContaCorrente>> ObterPorNome(string nome);
 
-        ContaCorrente Obter(string numeroDaConta);
+        Task<ContaCorrente> Obter(string numeroDaConta);
     }
 }

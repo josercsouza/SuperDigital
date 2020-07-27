@@ -2,6 +2,7 @@
 using SuperDigital.Dominio.Entidades;
 using SuperDigital.Dominio.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Aplicacao.Controllers
 {
@@ -14,9 +15,9 @@ namespace SuperDigital.Aplicacao.Controllers
         public AutorizacaoController(IServicoDeAutorizacao servicoDeAutorizacao) => _servicoDeAutorizacao = servicoDeAutorizacao;
 
         [HttpGet("{codigo}")]
-        public ActionResult<Autorizacao> Get(Guid codigo)
+        public async Task<Autorizacao> Get(Guid codigo)
         {
-            return _servicoDeAutorizacao.Obter(codigo);
+            return await _servicoDeAutorizacao.Obter(codigo);
         }
 
         [HttpGet("Revalidar")]

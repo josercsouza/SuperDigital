@@ -5,6 +5,7 @@ using SuperDigital.Infraestrutura.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Infraestrutura.Repositorios
 {
@@ -12,17 +13,17 @@ namespace SuperDigital.Infraestrutura.Repositorios
     {
         private readonly DbContextOptionsBuilder<ContextoBase> _optionsBuilder;
 
-        public RepositorioDeLancamento() => 
+        public RepositorioDeLancamento() =>
             _optionsBuilder = new DbContextOptionsBuilder<ContextoBase>();
 
         public void Adicionar(Lancamento lancamento)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             contexto.Set<Lancamento>().Add(lancamento);
-            contexto.SaveChanges();
+            contexto.SaveChangesAsync();
         }
 
-        public List<Lancamento> Obter(string contaOrigem, string contaDestino, DateTime? data = null)
+        public async Task<List<Lancamento>> Obter(string contaOrigem, string contaDestino, DateTime? data = null)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             // TODO - colocar parametros de filtro
@@ -37,13 +38,13 @@ namespace SuperDigital.Infraestrutura.Repositorios
             if (data != null)
                 consulta = consulta.Where(x => x.DataEfetiva == data);
 
-            return consulta.ToList();
+            return await consulta.ToListAsync().ConfigureAwait(false);
         }
 
-        public Lancamento Obter(long id)
+        public async Task<Lancamento> Obter(long id)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
-            return contexto.Set<Lancamento>().FirstOrDefault(x => x.Id == id);
+            return await contexto.Set<Lancamento>().FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
         }
 
         public void Dispose()

@@ -1,6 +1,7 @@
 ﻿using SuperDigital.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Repositorios
 {
@@ -8,8 +9,8 @@ namespace SuperDigital.Dominio.Repositorios
     {
         void Adicionar(Autorizacao autorizacao);
 
-        List<Autorizacao> ObterClientesIrregulares();
+        Task<List<Autorizacao>> ObterClientesIrregulares();
 
-        Autorizacao Obter(Guid codigo);
+        Task<Autorizacao> Obter(Guid codigo);
     }
 }

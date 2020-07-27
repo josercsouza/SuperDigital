@@ -1,5 +1,6 @@
 ﻿using SuperDigital.Dominio.Entidades;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Repositorios
 
@@ -12,8 +13,8 @@ namespace SuperDigital.Dominio.Repositorios
 
         void Excluir(ContaCorrente contaCorrente);
 
-        List<ContaCorrente> ObterPorNome(string nome);
+        Task<List<ContaCorrente>> ObterPorNome(string nome);
 
-        ContaCorrente Obter(string numeroDaConta);
+        Task<ContaCorrente> Obter(string numeroDaConta);
     }
 }

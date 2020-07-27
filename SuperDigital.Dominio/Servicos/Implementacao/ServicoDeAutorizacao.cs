@@ -3,6 +3,7 @@ using SuperDigital.Dominio.Interfaces;
 using SuperDigital.Dominio.Repositorios;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Servicos.Implementacao
 {
@@ -18,14 +19,14 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
             _repositorioDeAutorizacao.Adicionar(autorizacao);
         }
 
-        public Autorizacao Obter(Guid codigo)
+        public async Task<Autorizacao> Obter(Guid codigo)
         {
-            return _repositorioDeAutorizacao.Obter(codigo);
+            return await _repositorioDeAutorizacao.Obter(codigo);
         }
 
-        public List<Autorizacao> ObterClientesIrregulares()
+        public async Task<List<Autorizacao>> ObterClientesIrregulares()
         {
-            return _repositorioDeAutorizacao.ObterClientesIrregulares();
+            return await _repositorioDeAutorizacao.ObterClientesIrregulares();
         }
     }
 }

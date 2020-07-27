@@ -5,6 +5,7 @@ using SuperDigital.Dominio.Repositorios;
 using SuperDigital.Dominio.Servicos.Implementacao.Validadores;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Servicos.Implementacao
 {
@@ -20,7 +21,7 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
             _repositorioDeContaCorrente = repositorioDeContaCorrente;
         }
 
-        public bool Adicionar(LancamentoOV lancamentoOV)
+        public async Task<bool> Adicionar(LancamentoOV lancamentoOV)
         {
             try
             {
@@ -43,12 +44,12 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
                 }
 
                 // Alterar o saldo da Origem
-                var contaOrigem = _repositorioDeContaCorrente.Obter(lancamento.ContaOrigem);
+                var contaOrigem = await _repositorioDeContaCorrente.Obter(lancamento.ContaOrigem);
                 contaOrigem.SaldoDaConta -= lancamento.Valor;
                 _repositorioDeContaCorrente.Alterar(contaOrigem);
 
                 // Alterar o saldo do destino
-                var contaDestino = _repositorioDeContaCorrente.Obter(lancamento.ContaDestino);
+                var contaDestino = await _repositorioDeContaCorrente.Obter(lancamento.ContaDestino);
                 contaDestino.SaldoDaConta += lancamento.Valor;
                 _repositorioDeContaCorrente.Alterar(contaDestino);
 
@@ -63,14 +64,14 @@ namespace SuperDigital.Dominio.Servicos.Implementacao
             }
         }
 
-        public List<Lancamento> Obter(string contaOrigem, string contaDestino, DateTime data)
+        public async Task<List<Lancamento>> Obter(string contaOrigem, string contaDestino, DateTime data)
         {
-            return _repositorioDeLancamento.Obter(contaDestino, contaDestino, data);
+            return await _repositorioDeLancamento.Obter(contaDestino, contaDestino, data);
         }
 
-        public Lancamento Obter(long id)
+        public async Task<Lancamento> Obter(long id)
         {
-            return _repositorioDeLancamento.Obter(id);
+            return await _repositorioDeLancamento.Obter(id);
         }
     }
 }

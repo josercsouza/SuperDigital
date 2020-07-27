@@ -7,6 +7,7 @@ using SuperDigital.Infraestrutura.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Infraestrutura.Repositorios
 {
@@ -21,10 +22,10 @@ namespace SuperDigital.Infraestrutura.Repositorios
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             contexto.Set<Autorizacao>().Add(autorizacao);
-            contexto.SaveChanges();
+            contexto.SaveChangesAsync();
         }
 
-        public List<Autorizacao> OldObterClientesIrregulares()
+        public async Task<List<Autorizacao>> OldObterClientesIrregulares()
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             var consulta = contexto.Set<Autorizacao>().AsNoTracking().AsQueryable();
@@ -32,18 +33,18 @@ namespace SuperDigital.Infraestrutura.Repositorios
             consulta = consulta.Where(x => x.Validado);
             consulta = (IQueryable<Autorizacao>)consulta.GroupBy(x => x.CodigoDeIndentificacao);
 
-            var retorno = consulta.ToList();
+            var retorno = consulta.ToListAsync();
 
-            return retorno;
+            return await retorno;
         }
 
-        public Autorizacao Obter(Guid codigo)
+        public async Task<Autorizacao> Obter(Guid codigo)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
-            return contexto.Set<Autorizacao>().FirstOrDefault(x => x.Codigo == codigo);
+            return await contexto.Set<Autorizacao>().FirstOrDefaultAsync(x => x.Codigo == codigo).ConfigureAwait(false);
         }
 
-        public List<Autorizacao> ObterClientesIrregulares()
+        public async Task<List<Autorizacao>> ObterClientesIrregulares()
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             using var conexao = new SqlConnection(contexto.StringConectionConfig());
@@ -61,9 +62,9 @@ namespace SuperDigital.Infraestrutura.Repositorios
                                  )
                                  ORDER BY DataDeExpiracao";
 
-            IEnumerable<Autorizacao> retorno = conexao.Query<Autorizacao>(sql);
+            Task<IEnumerable<Autorizacao>> retorno = conexao.QueryAsync<Autorizacao>(sql);
 
-            return retorno.ToList();
+            return (List<Autorizacao>)await retorno.ConfigureAwait(false);
         }
     }
 }

@@ -5,6 +5,7 @@ using SuperDigital.Infraestrutura.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Infraestrutura.Repositorios
 {
@@ -19,33 +20,33 @@ namespace SuperDigital.Infraestrutura.Repositorios
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             contexto.Set<ContaCorrente>().Add(contaCorrente);
-            contexto.SaveChanges();
+            contexto.SaveChangesAsync();
         }
 
         public void Alterar(ContaCorrente contaCorrente)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             contexto.Set<ContaCorrente>().Update(contaCorrente);
-            contexto.SaveChanges();
+            contexto.SaveChangesAsync();
         }
 
         public void Excluir(ContaCorrente contaCorrente)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
             contexto.Set<ContaCorrente>().Remove(contaCorrente);
-            contexto.SaveChanges();
+            contexto.SaveChangesAsync();
         }
 
-        public List<ContaCorrente> ObterPorNome(string nome)
+        public async Task<List<ContaCorrente>> ObterPorNome(string nome)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
-            return contexto.Set<ContaCorrente>().AsNoTracking().Where(x => x.NomeDoCorrentista.Contains(nome)).ToList();
+            return await contexto.Set<ContaCorrente>().AsNoTracking().Where(x => x.NomeDoCorrentista.Contains(nome)).ToListAsync().ConfigureAwait(false);
         }
 
-        public ContaCorrente Obter(string numeroDaConta)
+        public async Task<ContaCorrente> Obter(string numeroDaConta)
         {
             using var contexto = new ContextoBase(_optionsBuilder.Options);
-            return contexto.Set<ContaCorrente>().FirstOrDefault(x => x.NumeroDaConta == numeroDaConta);
+            return await contexto.Set<ContaCorrente>().FirstOrDefaultAsync(x => x.NumeroDaConta == numeroDaConta).ConfigureAwait(false);
         }
 
         public void Dispose()

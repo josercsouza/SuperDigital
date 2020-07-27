@@ -1,6 +1,7 @@
 ﻿using SuperDigital.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SuperDigital.Dominio.Repositorios
 {
@@ -8,8 +9,8 @@ namespace SuperDigital.Dominio.Repositorios
     {
         void Adicionar(Lancamento lancamento);
 
-        List<Lancamento> Obter(string contaOrigem, string contaDestino, DateTime? data = null);
+        Task<List<Lancamento>> Obter(string contaOrigem, string contaDestino, DateTime? data = null);
 
-        Lancamento Obter(long id);
+        Task<Lancamento> Obter(long id);
     }
 }
