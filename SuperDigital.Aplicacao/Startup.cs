@@ -25,10 +25,12 @@ namespace SuperDigital.Aplicacao
             services.AddSingleton<IServicoDeLancamento, ServicoDeLancamento>();
             services.AddSingleton<IServicoDeContaCorrente, ServicoDeContaCorrente>();
             services.AddSingleton<IServicoDeAutorizacao, ServicoDeAutorizacao>();
+            services.AddSingleton<IServicoDeResponsavelFinanceiro, ServicoDeResponsavelFinanceiro>();
 
             services.AddSingleton<IRepositorioDeLancamento, RepositorioDeLancamento>();
             services.AddSingleton<IRepositorioDeContaCorrente, RepositorioDeContaCorrente>();
             services.AddSingleton<IRepositorioDeAutorizacao, RepositorioDeAutorizacao>();
+            services.AddSingleton<IRepositorioDeResponsavelFinanceiro, RepositorioDeResponsavelFinanceiro>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

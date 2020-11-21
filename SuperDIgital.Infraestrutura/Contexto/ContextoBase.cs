@@ -18,6 +18,9 @@ namespace SuperDigital.Infraestrutura.Contexto
         // TestesDiversos
         public DbSet<Autorizacao> Autorizacao { get; set; }
 
+        public DbSet<ResponsavelFinanceiro> ResponsavelFinanceiro { get; set; }
+
+        public DbSet<Endereco> Endereco { get; set; }
         // TestesDiversos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,8 +33,19 @@ namespace SuperDigital.Infraestrutura.Contexto
 
         public string StringConectionConfig()
         {
+            // SuperDigital
             //return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SuperDigital;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            // TestesDiversos
             return @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TestesDiversos;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ResponsavelFinanceiro>()
+                .HasOne(a => a.Endereco)
+                .WithOne(b => b.ResponsavelFinanceiro)
+                .HasForeignKey<Endereco>(b => b.CodigoDoResponsavelFinanceiro);
         }
     }
 }
